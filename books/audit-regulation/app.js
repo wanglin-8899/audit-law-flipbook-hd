@@ -248,6 +248,8 @@
       image.src = page.src;
       image.alt = `${data.title}第${index + 1}页`;
       image.draggable = false;
+      image.loading = "eager";
+      image.decoding = "async";
 
       const highlightLayer = document.createElement("div");
       highlightLayer.className = "page-highlight-layer";
@@ -258,7 +260,7 @@
 
   async function preloadPageImages() {
     await Promise.all(
-      data.pages.map(
+      data.pages.slice(0, 4).map(
         (page) =>
           new Promise((resolve) => {
             const image = new Image();
