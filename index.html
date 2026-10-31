@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#182320">
+    <title>审计法规双书｜高清可搜索版</title>
+    <style>
+      :root {
+        --desk: #182320;
+        --desk-deep: #0d1513;
+        --text: #f0ece2;
+        --muted: #a5b0aa;
+        --accent: #d2ad77;
+        --line: rgba(240, 236, 226, 0.16);
+        --serif: "Songti SC", "STSong", "SimSun", serif;
+        --sans: "Microsoft YaHei UI", "PingFang SC", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        min-width: 320px;
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        display: grid;
+        min-height: 100dvh;
+        overflow-x: hidden;
+        background-color: var(--desk);
+        background-image:
+          repeating-linear-gradient(
+            90deg,
+            transparent 0,
+            transparent 139px,
+            rgba(255, 255, 255, 0.025) 140px,
+            transparent 141px
+          ),
+          repeating-linear-gradient(
+            0deg,
+            transparent 0,
+            transparent 219px,
+            rgba(255, 255, 255, 0.018) 220px,
+            transparent 221px
+          );
+        color: var(--text);
+        font-family: var(--sans);
+      }
+
+      body::after {
+        position: fixed;
+        inset: 0;
+        box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.42);
+        content: "";
+        pointer-events: none;
+      }
+
+      main {
+        display: grid;
+        width: min(100%, 1220px);
+        min-height: 100dvh;
+        margin: 0 auto;
+        padding:
+          max(28px, env(safe-area-inset-top))
+          clamp(20px, 5vw, 72px)
+          max(28px, env(safe-area-inset-bottom));
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        align-items: center;
+      }
+
+      header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        padding-bottom: 18px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .kicker {
+        color: var(--accent);
+        font-size: 10px;
+        letter-spacing: 0.22em;
+      }
+
+      h1 {
+        margin: 7px 0 0;
+        font-family: var(--serif);
+        font-size: clamp(26px, 4vw, 42px);
+        font-weight: 500;
+        letter-spacing: 0.08em;
+      }
+
+      header p {
+        margin: 0;
+        color: var(--muted);
+        font-family: var(--serif);
+        font-size: 12px;
+        letter-spacing: 0.08em;
+      }
+
+      .shelf {
+        display: grid;
+        width: 100%;
+        max-width: 940px;
+        margin: 0 auto;
+        padding: clamp(36px, 8vh, 92px) 0 clamp(24px, 6vh, 66px);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: clamp(34px, 8vw, 104px);
+        perspective: 1600px;
+      }
+
+      .book-link {
+        position: relative;
+        display: block;
+        width: min(100%, 328px);
+        justify-self: center;
+        color: inherit;
+        text-decoration: none;
+        transform: rotateY(var(--turn, 0deg)) translateY(0);
+        transform-origin: center bottom;
+        transition:
+          transform 260ms ease,
+          filter 260ms ease;
+      }
+
+      .book-link:first-child {
+        --turn: 3deg;
+      }
+
+      .book-link:last-child {
+        --turn: -3deg;
+      }
+
+      .book-link:hover,
+      .book-link:focus-visible {
+        --turn: 0deg;
+        filter: brightness(1.04);
+        outline: none;
+        transform: rotateY(var(--turn)) translateY(-8px);
+      }
+
+      .cover-wrap {
+        position: relative;
+        aspect-ratio: 420 / 595;
+        box-shadow: 0 38px 58px rgba(0, 0, 0, 0.48);
+      }
+
+      .cover-wrap::before {
+        position: absolute;
+        z-index: -1;
+        right: -9px;
+        bottom: 1%;
+        width: 11px;
+        height: 98%;
+        background:
+          repeating-linear-gradient(
+            0deg,
+            #eee6d7 0,
+            #eee6d7 1px,
+            #d1c6b2 2px,
+            #eee6d7 3px
+          );
+        content: "";
+      }
+
+      .cover-wrap img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .book-meta {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        padding-top: 18px;
+      }
+
+      .book-meta strong {
+        font-family: var(--serif);
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+      }
+
+      .book-meta span {
+        color: var(--muted);
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        white-space: nowrap;
+      }
+
+      .shelf-base {
+        grid-column: 1 / -1;
+        height: 1px;
+        margin-top: -22px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(215, 202, 177, 0.22),
+          transparent
+        );
+      }
+
+      footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 10px;
+      }
+
+      footer a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        color: var(--accent);
+      }
+
+      @media (max-width: 700px) {
+        main {
+          grid-template-rows: auto auto auto;
+          align-items: start;
+        }
+
+        header {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .shelf {
+          padding-top: 38px;
+          grid-template-columns: 1fr;
+          gap: 42px;
+        }
+
+        .book-link {
+          width: min(76vw, 310px);
+        }
+
+        .book-link:first-child,
+        .book-link:last-child {
+          --turn: 0deg;
+        }
+
+        .shelf-base {
+          display: none;
+        }
+
+        footer {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div>
+          <span class="kicker">AUDIT LEGISLATION</span>
+          <h1>审计法规双书</h1>
+        </div>
+        <p>国家审计法规阅读本 · 高清全文搜索</p>
+      </header>
+
+      <section class="shelf" aria-label="审计法规电子书">
+        <a class="book-link" href="books/audit-law/index.html">
+          <span class="cover-wrap">
+            <img
+              src="books/audit-law/assets/pages/page-01.webp"
+              alt="中华人民共和国审计法封面"
+            >
+          </span>
+          <span class="book-meta">
+            <strong>中华人民共和国审计法</strong>
+            <span>2021年修正</span>
+          </span>
+        </a>
+
+        <a class="book-link" href="books/audit-regulation/index.html">
+          <span class="cover-wrap">
+            <img
+              src="books/audit-regulation/assets/pages/page-01.webp"
+              alt="中华人民共和国审计法实施条例封面"
+            >
+          </span>
+          <span class="book-meta">
+            <strong>审计法实施条例</strong>
+            <span>2026年修订</span>
+          </span>
+        </a>
+
+        <div class="shelf-base" aria-hidden="true"></div>
+      </section>
+
+      <footer>
+        <span>高清页面 · 全文搜索 · 条文据所附文本整理</span>
+        <span>
+          <a href="pdf/中华人民共和国审计法_2021年修正_法规阅读本.pdf">审计法 PDF</a>
+          ·
+          <a href="pdf/中华人民共和国审计法实施条例_2026年修订_法规阅读本.pdf">实施条例 PDF</a>
+        </span>
+      </footer>
+    </main>
+  </body>
+</html>
